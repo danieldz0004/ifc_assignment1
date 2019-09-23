@@ -58,10 +58,9 @@ public class ItemUnitOfMeasureController {
         // find all barcode
         Map<ItemUnitOfMeasure, String> itemBarcodeMap = new HashMap<>();
         for (ItemUnitOfMeasure itemUnitOfMeasure : itemUnitList) {
-            String barcode = "";
             String ItemUOM = itemUnitOfMeasure.getQuantityUm();
             ItemCrossReference itemCrossReference = itemCrossReferenceService.findByItemAndCompanyAndItemUm(item, companyId, ItemUOM);
-            barcode = itemCrossReference != null ? itemCrossReference.getxRefItem() : "";
+            String barcode = itemCrossReference != null ? itemCrossReference.getxRefItem() : "";
             itemBarcodeMap.put(itemUnitOfMeasure, barcode);
         }
 
