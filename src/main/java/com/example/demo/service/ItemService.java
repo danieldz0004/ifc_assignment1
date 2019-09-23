@@ -16,5 +16,5 @@ public interface ItemService {
     // delete by id
     void deleteItem(long internalItemUm);
     // find by item
-    List<Item> findByItemItem(String item);
+    Item findByItemAndCompany(String item, String company);
 }

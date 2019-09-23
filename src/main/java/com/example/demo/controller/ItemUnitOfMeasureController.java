@@ -37,48 +37,42 @@ public class ItemUnitOfMeasureController {
         return "home";
     }
 
-    @GetMapping(value = "getItemUnitById")
-    public ModelAndView getItemUnitById(@RequestParam long internalItemUm)
-    {
-        ModelAndView mv = new ModelAndView("showItemUnitOfMeasure");
-        ItemUnitOfMeasure itemUnit =  itemUnitService.getItemUnitOfMeasure(internalItemUm);
-        mv.addObject("itemUnit", JSON.toJSON(itemUnit));
-        return mv;
-    }
-
-//    @GetMapping(value = "getItemUnitByItem")
-//    public ModelAndView getItemUnitByItem(@RequestParam String item)
-//    {
-//        ModelAndView mv = new ModelAndView("showItemUnitOfMeasure");
-//        List<ItemUnitOfMeasure> itemUnitList =  itemUnitService.findByItemItem(item);
-//        mv.addObject("itemUnit", JSON.toJSON(itemUnitList.toString()));
-//        return mv;
-//    }
-
-
     @GetMapping(value = "getItemUnitByCompanyAndItem")
     public ModelAndView getItemUnitByCompanyAndItem(@RequestParam String company, @RequestParam String item)
     {
-        
+        // init view
         ModelAndView mv = new ModelAndView("home");
-        List<ItemUnitOfMeasure> itemUnitList =  itemUnitService.findByItemAndCompany(company, item);
+
+        Company companyObject = companyService.findByCompanyName(company);
+        // get company id by company name
+        String companyId = companyObject.getCompany();
+
+        // find item description
+        Item newItem = itemService.findByItemAndCompany(item, companyId);
+        String itemDescription = newItem.getDescription();
+        mv.addObject("description", itemDescription);
+
+        // find unit of measure by item and company ID
+        List<ItemUnitOfMeasure> itemUnitList = itemUnitService.findByItemAndCompany(companyId, item);
 
         ArrayList<String> barcodeList = new ArrayList<>();
-        List<ItemCrossReference> itemList = itemCrossReferenceService.findByItemAndCompany(item, company);
-        if (itemList.size() != 0)
-        {
+        // find cross reference by item and company ID
+        List<ItemCrossReference> itemList = itemCrossReferenceService.findByItemAndCompany(item, companyId);
+
+        if (itemList.size() != 0) {
             ItemCrossReference foundItemUnit = itemList.get(0);
             String barcode = foundItemUnit.getxRefItem();
             barcodeList.add(barcode);
         }
 
-        for (String str:barcodeList)
-        {
+        for (String str : barcodeList) {
             System.out.println(str);
         }
 
         Object itemInJson = JSON.toJSON(itemUnitList.toString());
-        mv.addObject("itemUnit", itemInJson);
+        mv.addObject("itemUnit", itemUnitList.get(0));
+        mv.addObject("barcode", barcodeList.get(0));
+
 
         return mv;
     }

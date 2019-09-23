@@ -40,7 +40,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> findByItemItem(String item) {
-        return itemRepo.findByItemItem(item);
+    public Item findByItemAndCompany(String item, String company) {
+        return itemRepo.findByItemAndCompany(item, company);
     }
 }

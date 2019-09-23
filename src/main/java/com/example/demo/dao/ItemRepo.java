@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ItemRepo extends JpaRepository<Item, Long> {
-    @Query("FROM Item where item = ?1")
-    List<Item> findByItemItem(String item);
+    @Query("SELECT i FROM Item i where i.item = ?1 and i.company = ?2")
+    Item findByItemAndCompany(String item, String company);
 
 }
