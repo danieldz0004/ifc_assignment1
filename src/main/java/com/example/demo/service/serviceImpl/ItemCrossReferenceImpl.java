@@ -41,7 +41,7 @@ public class ItemCrossReferenceImpl implements ItemCrossReferenceService {
     }
 
     @Override
-    public List<ItemCrossReference> findByItemAndCompany(String item, String company) {
-        return itemCrossReferenceRepo.findByItemAndCompany(item, company);
+    public ItemCrossReference findByItemAndCompanyAndItemUm(String item, String company, String quantityUm) {
+        return itemCrossReferenceRepo.findByItemAndCompanyAndItemUm(item, company, quantityUm);
     }
 }

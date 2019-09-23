@@ -1,8 +1,5 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.NaturalId;
-import org.springframework.data.jpa.repository.Query;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,12 +23,7 @@ public class Item implements Serializable {
     private String allocationRule;
 
     @Column(name="ITEM")
-    @NaturalId
     private String item;
-
-//    @Column(name="COMPANY")
-//    @NaturalId
-//    private String company;
 
     @Column(name = "COMPANY")
     private String company;

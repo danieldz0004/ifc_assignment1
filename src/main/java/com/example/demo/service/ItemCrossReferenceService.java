@@ -16,5 +16,5 @@ public interface ItemCrossReferenceService {
     // delete by id
     void deleteItemCrossReference(long internalItemCrossReferenceUm);
     // find by item and company
-    List<ItemCrossReference> findByItemAndCompany(String item, String company);
+    ItemCrossReference findByItemAndCompanyAndItemUm(String item, String company, String quantityUm);
 }
